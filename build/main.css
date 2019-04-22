@@ -1,0 +1,57 @@
+.Header {
+  background-color: #282c34;
+  height: 160px;
+  padding: 20px;
+  color: white;
+  text-align: center; }
+
+.Logo img {
+  animation: Logo-spin infinite 20s linear;
+  height: 80px;
+  pointer-events: none; }
+
+.Menu {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.Menu li {
+  display: inline-block;
+  padding-right: 10px; }
+
+.Menu li a {
+  color: lightgray;
+  text-decoration: none; }
+
+.Menu li a:hover {
+  color: #EEE;
+  text-decoration: none; }
+
+@keyframes Logo-spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+.Content {
+  margin: 0 auto;
+  width: 98%; }
+
+.contador {
+  color: red; }
+
+.Footer {
+  margin: 0 auto;
+  text-align: center;
+  width: 98%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace; }
+
