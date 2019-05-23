@@ -1,25 +1,44 @@
-import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import React, {Component} from 'react';
+import { Route, Switch } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 //Components
 import App from './components/App';
 import About from './components/About';
-import Contact from './components/Contact';
 import Home from './components/Home';
 import Page404 from './components/Page404';
-import Directory from './components/Directory'
+import GridPosts from './components/Post/GridPosts'
 
-const AppRoutes = ()=> 
-<App>
-<Switch>
-        <Route path="/directory" component={Directory}/>
-        <Route path="/about" component={About}/>
-        <Route path="/contact" component={Contact}/>
-        <Route path="/" component={Home}/>
-        <Route component={Page404}/>
-</Switch>
-</App>
+import CreatePost from './containers/CreatePost';
+import LoginForm from './components/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import PostSingle from './components/Post/PostSingle';
 
+class AppRoutes extends Component {
+        constructor(props){
+            super(props);                     
+        }       
+        render() {
+                return (
+                        <App>
+                                <Switch>
+                                        <Route path="/login" exact component={LoginForm} />                                       
+                                        <Route path="/" exact component={Home} />                                       
+                                        <Route path="/write" exact component={CreatePost} />
+                                        <Route path="/admin" exact component={GridPosts} />  
+                                        <Route path ="/:Id" exact component= {PostSingle}/>                                     
+                                        <ProtectedRoute path="/about" exact loggedIn={this.props.loggedIn} component={About} />
+                                        <Route component={Page404} />
+                                </Switch>
+                        </App>
+                )
+        }
+}
 
+const mapStateToProps = (state) =>{      
+        return{
+        loggedIn: state.loginData.isLoginSuccess  
+        }
+}
 
-export default AppRoutes;
+export default connect(mapStateToProps)(AppRoutes);

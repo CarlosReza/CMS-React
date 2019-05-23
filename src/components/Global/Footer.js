@@ -12,6 +12,7 @@ class Footer extends Component{
         return(
         <div className="Footer">
         <span dangerouslySetInnerHTML={{ __html:copyright}} />
+       
         </div>
         )
         }

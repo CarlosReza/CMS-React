@@ -7,8 +7,7 @@ import Header from './Global/Header';
 import Content from './Global/Content';
 import Footer from './Global/Footer';
 
-//Data
-import items from '../data/menu'
+
 
 class App extends Component {
   static propTypes = {
@@ -18,11 +17,10 @@ class App extends Component {
   render() {   
     const {children} = this.props; 
     return (
-      <div className="App">
-       <Header title="Arduus-ti" items={items}/>
+      <div>
+       <Header title="You write!"/>      
        <Content body={children} />
-       <Footer copyright='&copy; Arduus-ti 2019' />
-        
+       <Footer copyright='&copy; You write 2019' />        
       </div>
     );
   }

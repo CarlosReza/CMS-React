@@ -19,10 +19,10 @@ module.exports = {
       },
       {
         test: /.(css|scss)$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
-        test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
+        test: /.(ttf|eot|jpg|jpeg|png|gif|mp3|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
           {
             loader: "file-loader",
@@ -31,7 +31,16 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [
+          {
+            loader: "url-loader?limit=10000&mimetype=application/font-woff"
+          }
+        ]
+      },
+     
     ]
   },
   plugins: [
@@ -44,4 +53,5 @@ module.exports = {
       chunkFilename: "[id].css"
     })
   ]
+
 };

@@ -1,6 +1,6 @@
 .Header {
   background-color: #282c34;
-  height: 160px;
+  height: 80px;
   padding: 20px;
   color: white;
   text-align: center;
@@ -8,9 +8,8 @@
 }
 .Logo img{
   animation: Logo-spin infinite 20s linear;
-  height: 80px;
+  height: 40px;
   pointer-events: none;
-
 }
 
 .Menu{
@@ -39,4 +38,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.user-icon{
+  height: 50px;
 }
