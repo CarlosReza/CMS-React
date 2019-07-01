@@ -22,8 +22,8 @@ class PostForm extends React.Component {
       Body: '',
       editorState: EditorState.createEmpty(),
       uploadStatus: false,
-      Cover: dummyImage
-
+      Cover: dummyImage,
+      Description:''
     };
   }
 
@@ -68,7 +68,8 @@ class PostForm extends React.Component {
       Body: '',
       editorState: '',
       uploadStatus: false,
-      Cover:dummyImage
+      Cover:dummyImage,
+      Description:''
     });
   };
 
@@ -110,7 +111,9 @@ class PostForm extends React.Component {
     return (
       <div>
         <br /><br />
+        <h2>New Post</h2>
         <form onSubmit={this.handleSubmit}>
+           {/* Área de Título del post */}
           <div className="form-group">
             <input
               type="text"
@@ -121,13 +124,20 @@ class PostForm extends React.Component {
               value={this.state.Title}
             />
           </div>
+          {/* Área de Portada del post */}
           <div className="form-group">
-            <label>Portada del artículo</label>
+            <label>Cover of the post</label>
             <input className="form-control" ref={(ref) => { this.uploadInput = ref; }} type="file" onChange={this.handleUploadCover} />
           </div>
           <div className="form-group">
           <img className="cover-form" src={this.state.Cover}/>
           </div>
+          {/* Área de breve descripción del post */}
+          <div className="form-group">
+          <textarea className='form-control' name="Description" required rows="2" ref={(input) => this.getMessage = input}
+              defaultValue={this.state.Description} cols="" placeholder="Enter short description of the post" onChange={this.handleInputChange} />
+          </div>
+          {/* Área de contenido del post */}
           <Editor
             editorState={editorState}
             wrapperClassName="demo-wrapper"
@@ -141,19 +151,7 @@ class PostForm extends React.Component {
               history: { inDropdown: true },
               image: { uploadCallback: this.uploadImageCallBack, alt: { present: true, mandatory: false } }
             }}
-          />
-
-          {/* <div className="form-group">
-            <textarea
-              cols="19"
-              rows="8"
-              placeholder="Body"
-              className="form-control"
-              name="Body"
-              onChange={this.handleInputChange}
-              value={this.state.Body}>
-            </textarea>
-          </div> */}
+          />         
 
           <div className="form-group">
             <button type="submit" className="btn btn-primary">Add Post</button>

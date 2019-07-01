@@ -1,4 +1,4 @@
-import { SET_LOGIN_PENDING,SET_LOGIN_SUCCESS,SET_LOGIN_ERROR } from './types';
+import { SET_LOGIN_PENDING,SET_LOGIN_SUCCESS,SET_LOGIN_ERROR , SET_LOGOUT} from './types';
 
 function callLoginApi(email, password, callback) {
    
@@ -35,16 +35,24 @@ function setLoginPending(isLoginPending) {
     }
   }
 
+  function setLogout(logout){
+    return{
+      type: SET_LOGOUT,
+      logout
+    }
+  }
+
   export function login(email, password) {     
     return dispatch => {
       dispatch(setLoginPending(true));
       dispatch(setLoginSuccess(false));
       dispatch(setLoginError(null));
+      
   
       callLoginApi(email, password, error => {
         dispatch(setLoginPending(false));       
         if (!error) {
-          dispatch(setLoginSuccess(true));
+          dispatch(setLoginSuccess(true));         
         } else {
           dispatch(setLoginError(error));
         }
@@ -55,5 +63,13 @@ function setLoginPending(isLoginPending) {
   export const initAppLogin = ()=>{
     return dispatch => {       
         dispatch(setLoginSuccess(false));       
+    }
+  }
+
+  export function Logout (){
+    console.log("Entré a la función logout")
+    return dispatch => {    
+     dispatch(setLogout(true));
+     dispatch(setLoginSuccess(false));
     }
   }

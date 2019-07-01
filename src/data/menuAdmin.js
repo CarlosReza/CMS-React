@@ -1,10 +1,10 @@
 export default[   
     {
-        title:'Escribe',
+        title:'Write',
         url:'/write'
     },
     {
-        title:'Gestión',
+        title:'Admin Posts',
         url:'/admin'
     }
 

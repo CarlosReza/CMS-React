@@ -4,20 +4,21 @@ import { Card } from 'react-bootstrap';
 import '../../styles/post.css'
 import dummyImage from '../Global/images/dummy-post-card.jpg';
 
-export default ({ post: { Title, Body, Cover, Id } }) => {
-    var strDesc = Body.substring(0, 30);
-    return (        
+export default ({ post: { Title, Body, Cover, Id, Description } }) => {
+    //var strDesc = Body.substring(0, 30);
+    return (
 
-            <Card className="card-post">
+        <Card className="card-post">
+            <Link to={"/" + Id}>
                 <Card.Img variant="top" src={Cover} />
-                <Card.Body>
-                    <Card.Title>{Title}</Card.Title>
-                    <Card.Text>
-                        {strDesc}
-                    </Card.Text>
-                    <Link to={"/" + Id}>Ver más</Link>
-                </Card.Body>
-            </Card>
-
+            </Link>
+            <Card.Body>
+                <Card.Title>{Title}</Card.Title>
+                <Card.Text>
+                    {Description}
+                </Card.Text>
+                <Link to={"/" + Id}>Ver más</Link>
+            </Card.Body>
+        </Card>
     );
 };

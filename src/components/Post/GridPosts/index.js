@@ -43,18 +43,18 @@ class GridPosts extends Component {
     if (this.props.articulos !== undefined && this.props.articulos.length > 0) {
 
       const columnsB = [
-        {
-          dataField: 'Id',
-          text: 'Id',
-          Cell: row => (
-            <div>
-              <span title={row.value} hidden>{row.value}</span>
-            </div>
-          )
-        },
+        // {
+        //   dataField: 'Id',
+        //   text: 'Id',
+        //   Cell: row => (
+        //     <div>
+        //       <span title={row.value} hidden>{row.value}</span>
+        //     </div>
+        //   )
+        // },
         {
           dataField: 'Title',
-          text: 'Título'
+          text: 'Title'
         },
         // {
         //   dataField: 'Body',
@@ -62,7 +62,7 @@ class GridPosts extends Component {
         // },
         {
           dataField: 'Options',
-          text: 'Options',
+          text: '',
           isDummyField: true,
           formatter: (cell, row, enumObject, rowIndex) => {
             return (

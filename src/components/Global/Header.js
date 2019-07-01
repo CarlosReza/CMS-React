@@ -8,15 +8,19 @@ import { connect } from 'react-redux';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from "react-router-bootstrap";
 //Data
-import items from '../../data/menu'
-import itemsAdmin from '../../data/menuAdmin'
+import items from '../../data/menu';
+import itemsAdmin from '../../data/menuAdmin';
+
+import {Logout} from '../../actions/loginActions.js';
+
 
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoginSuccess: false
+            isLoginSuccess: false,
+            isLogout:true
         }
     }
     static propTypes = {
@@ -24,9 +28,15 @@ class Header extends Component {
         //items: PropTypes.array.isRequired
     }
 
-    render() {
-        const { title } = this.props;
+    handleLogout= (e)=>{
+        e.preventDefault();
+        this.props.dispatch(Logout());
+    }
 
+   
+    render() {
+        const { title } = this.props;      
+        
         return (
             <Navbar variant="dark" bg="dark" expand="lg">
                 <Navbar.Brand href="#" className="Logo"><img src={Logo} alt="logo" /></Navbar.Brand>
@@ -41,9 +51,9 @@ class Header extends Component {
                             </li>
                         )}
                     </Nav>
-
+                     {/* Condicional Login */}
                     <Nav className="pull-right">
-                        {this.props.isLoginSuccess ?
+                        {this.props.isLoginSuccess && !this.props.isLogout ?
                             <NavDropdown
                                 title={
                                     <div className="pull-left">
@@ -64,7 +74,7 @@ class Header extends Component {
 
 
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item >
+                                <NavDropdown.Item onClick = {this.handleLogout}>
                                     <i className="fa fa-sign-out"></i> Logout
                 </NavDropdown.Item>
                             </NavDropdown>
@@ -76,9 +86,6 @@ class Header extends Component {
                             </li>
                         }
                     </Nav>
-
-
-
                 </Navbar.Collapse>
             </Navbar>
         );
@@ -86,9 +93,11 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log("Estado en header")
+    console.log(state)
     return {
-        isLoginSuccess: state.loginData.isLoginSuccess
+        isLoginSuccess: state.loginData.isLoginSuccess,
+        isLogout: state.loginData.isLogout        
     }
 }
-
 export default connect(mapStateToProps)(Header);

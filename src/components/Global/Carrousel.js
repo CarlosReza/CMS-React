@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Carousel from 'react-bootstrap/Carousel'
+import { connect } from 'react-redux';
+import './css/Carrousel.css';
+import { Link } from 'react-router-dom';
 
 class Carrousel extends React.Component {
     constructor(props, context) {
@@ -10,6 +13,7 @@ class Carrousel extends React.Component {
         this.state = {
             index: 0,
             direction: null,
+            posts: []
         };
     }
 
@@ -22,14 +26,37 @@ class Carrousel extends React.Component {
 
     render() {
         const { index, direction } = this.state;
-
+        if (this.props.posts == undefined || !this.props.posts.length) {
+            return (
+                <div>
+                    No Posts
+              </div>
+            )
+        }
         return (
             <Carousel
                 activeIndex={index}
                 direction={direction}
                 onSelect={this.handleSelect}
             >
-                <Carousel.Item>
+                {
+                    this.props.posts.map(post =>
+                        <Carousel.Item key={post.Id}>
+                            <Link to={"/" + post.Id}>
+                                <img
+                                    className="img-cover-carrousel"
+                                    src={post.Cover}
+                                    alt={post.Title}
+                                />
+                            </Link>
+                            <Carousel.Caption>
+                                <h3>{post.Title}</h3>
+                                <p>{post.Description}</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    )
+                }
+                {/* <Carousel.Item>
                     <img
                         className="d-block w-100"
                         src="http://lorempixel.com/output/abstract-q-c-1024-250-8.jpg"
@@ -65,10 +92,17 @@ class Carrousel extends React.Component {
                             Praesent commodo cursus magna, vel scelerisque nisl consectetur.
               </p>
                     </Carousel.Caption>
-                </Carousel.Item>
+                </Carousel.Item> */}
             </Carousel>
         );
     }
 }
 
-export default Carrousel;
+const mapStateToProps = state => {
+    return {
+        posts: state.postsData.posts
+    }
+
+}
+
+export default connect(mapStateToProps)(Carrousel);

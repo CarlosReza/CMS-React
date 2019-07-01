@@ -1,10 +1,7 @@
 export default[
     {
-        title: 'Inicio',
+        title: 'Home',
         url:'/'
     },  
-    {
-        title:'Acerca de ',
-        url:'/about'
-    }
+   
 ]

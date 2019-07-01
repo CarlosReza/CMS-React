@@ -24,8 +24,8 @@ class AppRoutes extends Component {
                                 <Switch>
                                         <Route path="/login" exact component={LoginForm} />                                       
                                         <Route path="/" exact component={Home} />                                       
-                                        <Route path="/write" exact component={CreatePost} />
-                                        <Route path="/admin" exact component={GridPosts} />  
+                                        <ProtectedRoute path="/write" exact loggedIn={this.props.loggedIn} component={CreatePost} />
+                                        <ProtectedRoute path="/admin" exact loggedIn={this.props.loggedIn} component={GridPosts} />  
                                         <Route path ="/:Id" exact component= {PostSingle}/>                                     
                                         <ProtectedRoute path="/about" exact loggedIn={this.props.loggedIn} component={About} />
                                         <Route component={Page404} />

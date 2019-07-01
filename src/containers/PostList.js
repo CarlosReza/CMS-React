@@ -27,9 +27,7 @@ function PostList({ posts = [], onDelete,onInitUpdate }) {
 }
 
 const mapStateToProps = state => {
-  console.log("ARTICULOS")
-  console.log(state.postsData)
-  return {
+ return {
     posts: state.postsData.posts
   };
 };

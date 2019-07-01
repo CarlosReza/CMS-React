@@ -8,6 +8,15 @@ import {stateFromHTML} from 'draft-js-import-html';
 import { stateToMarkdown } from "draft-js-export-markdown";
 import {stateToHTML} from 'draft-js-export-html';
 
+import axios from 'axios';
+import dummyImage from '../../Global/images/dummy-post-card.jpg';
+import '../../../styles/post.css'
+
+const axiosConfig = {
+  'Access-Control-Allow-Methods': 'POST, GET,PUT, OPTIONS',
+  'Access-Control-Allow-Origin': '*'
+}
+
 class EditPostComponent extends Component {
 constructor(props){
   super(props);
@@ -15,7 +24,10 @@ constructor(props){
 
   this.state= {
     editorState: EditorState.createWithContent(contentState),
-    Body:''
+    Body:'',
+    uploadStatus: false,
+    Cover: props.post.Cover,
+    Description: props.post.Description
   }
 }
 
@@ -28,9 +40,12 @@ constructor(props){
     const newMessage = stateToHTML(
       this.state.editorState.getCurrentContent()
     )
+    const newDescription = this.getDescription.value;
     const data = {
       Title: newTitle,
-      Body: newMessage
+      Body: newMessage,
+      Cover: this.state.Cover,
+      Description: newDescription
     }
     console.log({ data })
     this.props.dispatch(updatePost(this.props.post.Id, data))
@@ -53,6 +68,27 @@ e.preventDefault();
       )
     });
   };
+
+  handleUploadCover = e => {
+    e.preventDefault();
+
+    const data = new FormData();
+    data.append('file', this.uploadInput.files[0]);
+    //data.append('filename', this.fileName.value);
+
+    axios.post('http://localhost:14918/api/docfile/Post', data, axiosConfig)
+      .then((response) => {
+        console.log(response)
+        this.setState({ 
+          Cover: "http://" + response.data[0], 
+          uploadStatus: true 
+        })
+       
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   uploadImageCallBack = (file) => {
     return new Promise(
@@ -81,10 +117,23 @@ e.preventDefault();
     return (
       <div>
         <br/><br/>
+        <h2>Update Post</h2>
         <form onSubmit={this.handleEdit}>
           <div className='form-group'>
             <input className='form-control' required type="text" ref={(input) => this.getTitle = input}
               defaultValue={this.props.post.Title} placeholder="Enter Post Title" />
+          </div>
+          <div className="form-group">
+            <label>Portada del artículo</label>
+            <input className="form-control" ref={(ref) => { this.uploadInput = ref; }} type="file" onChange={this.handleUploadCover} />
+          </div>
+          <div className="form-group">
+          <img className="cover-form" src={this.state.Cover}/>
+          </div>
+          {/* Área de breve descripción del post */}
+          <div className="form-group">
+          <textarea className='form-control' name="Description" required rows="2" ref={(input) => this.getDescription = input}
+              defaultValue={this.props.post.Description} cols="" placeholder="Enter short description of the post"/>
           </div>
           <div className='form-group'>
             {/* <textarea className='form-control' required rows="5" ref={(input) => this.getMessage = input}

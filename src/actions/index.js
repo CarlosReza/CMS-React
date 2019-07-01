@@ -8,9 +8,9 @@ const axiosConfig ={
 }  
 
 // CREAR POST
-export const createPost = ({ Title, Body,Cover }) => { 
+export const createPost = ({ Title, Body,Cover , Description}) => { 
   return (dispatch) => {   
-    return axios.post(`${apiUrl}/addpost`,{Title, Body,Cover},axiosConfig)
+    return axios.post(`${apiUrl}/addpost`,{Title, Body,Cover,Description},axiosConfig)
       .then(response => {
         dispatch(createPostSuccess(response.data))
       })
@@ -30,7 +30,9 @@ export const createPostSuccess =  (data) => {
       Body: data.Body,
       Cover:data.Cover,
       Editing:false,
-      Author:""
+      Author:"",
+      Description: data.Description,
+      CreateDate: data.CreateDate
     }
   }
 };
@@ -82,7 +84,7 @@ export const updatePost = (id, data) =>{
   console.log({id});
   console.log({data});
   return(dispatch)=>{
-    return axios.post(`${apiUrl}/editpost`,{Id:id, Title:data.Title, Body:data.Body}, axiosConfig)
+    return axios.post(`${apiUrl}/editpost`,{Id:id, Title:data.Title, Body:data.Body,Cover:data.Cover,Description:data.Description}, axiosConfig)
     .then(response =>{
       dispatch(updatePostSuccess(response.data))
     })
@@ -99,7 +101,8 @@ export const updatePostSuccess = (data) =>{
       Id: data.Id,
       Title: data.Title,
       Body: data.Body,
-      Cover:data.Cover
+      Cover:data.Cover,
+      Description: data.Description
     }
   }
 };
